@@ -22,6 +22,7 @@ foreach($source as $one)
   $fileNameTemplate = $one['image_id'].".jpg";
   $fileUrl = $urlTemplate . $fileNameTemplate;
 
+  //Check if file is synced already
   $sql = "SELECT count(*) synced FROM file WHERE originalFilename  =\"original".$fileNameTemplate."\"";
   $log->debug("Looking for file", ['SQL' => $sql]);
 
