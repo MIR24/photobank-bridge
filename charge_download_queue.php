@@ -12,7 +12,7 @@ $limit = 5;
 $urlTemplate = "http://stc01.mir24.tv/media/images/original/original";
 
 $log->pushHandler(new StreamHandler('main.log', Logger::DEBUG));
-$log->debug('sync started');
+$log->debug('Sync started');
 
 $sql = "SELECT * FROM photobank WHERE showinbank = 1";
 if ($limit) $sql.= ($limit)?" LIMIT ".$limit:"";
@@ -32,7 +32,7 @@ foreach($source as $one)
   $log->debug('Is synced:', $isSynced);
 
   if($isSynced["synced"]) {
-    $log->warning("Synced already");
+    $log->warning("Synced already, skip and continue");
     continue;
   }
 
