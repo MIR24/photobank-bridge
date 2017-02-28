@@ -6,6 +6,8 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 $log = new Logger('main');
+
+//Operation limit, mostly for debug purposes. Set to 0 at production run.
 $limit = 5;
 $urlTemplate = "http://stc01.mir24.tv/media/images/original/original";
 
