@@ -13,7 +13,7 @@ $log->pushHandler(new StreamHandler('main.log', Logger::DEBUG));
 $log->debug('sync started');
 
 $sql = "SELECT * FROM photobank WHERE showinbank = 1";
-$sql.= ($limit)?" LIMIT ".$limit:"";
+if ($limit) $sql.= ($limit)?" LIMIT ".$limit:"";
 $log->debug($sql);
 
 $source = getSource($sql);
