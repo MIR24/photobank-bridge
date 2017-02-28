@@ -1,0 +1,6 @@
+{
+    "name": "root/html",
+    "require": {
+        "monolog/monolog": "^1.22"
+    }
+}
