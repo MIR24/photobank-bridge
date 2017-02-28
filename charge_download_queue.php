@@ -33,6 +33,18 @@ foreach($source as $one)
   }
 
   $fileUrl = $urlTemplate . $fileNameTemplate;
+  //Check if queued already
+  $sql = "SELECT count(*) queued FROM remote_url_download_queue WHERE url =\"$fileUrl\"";
+  $log->debug("Looking for queued", ['SQL' => $sql]);
+
+  $isQueued = getSource($sql)->fetch();
+  $log->debug('Is queued:', $isQueued);
+
+  if($isQueued["queued"]) {
+    $log->warning("Queued already, skip and continue");
+    continue;
+  }
+
   $log->debug("Going to queue", ['URL' => $fileUrl]);
 
   $sql = "INSERT INTO `remote_url_download_queue` (user_id, url, file_server_id, job_status, folder_id, created, started, finished, download_percent) VALUES (1, '$fileUrl', 1, 'pending', 1, NOW(), '0000-00-00 00:00:00', '0000-00-00 00:00:00',0)";
