@@ -20,6 +20,7 @@ $source = getSource($sql);
 foreach($source as $one)
 {
   $fileNameTemplate = $one['image_id'].".jpg";
+  $fileUrl = $urlTemplate . $fileNameTemplate;
 
   $sql = "SELECT count(*) synced FROM file WHERE originalFilename  =\"original".$fileNameTemplate."\"";
   $log->debug("Looking for file", ['SQL' => $sql]);
@@ -32,7 +33,6 @@ foreach($source as $one)
     continue;
   }
 
-  $fileUrl = $urlTemplate . $fileNameTemplate;
   //Check if queued already
   $sql = "SELECT count(*) queued FROM remote_url_download_queue WHERE url =\"$fileUrl\"";
   $log->debug("Looking for queued", ['SQL' => $sql]);
