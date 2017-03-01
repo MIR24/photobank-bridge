@@ -27,6 +27,8 @@ if ($limit) $sql.= ($limit)?" LIMIT ".$limit:"";
 $log->debug($sql);
 
 $source = getSource($sql);
+$log->info("Rows found", ["rows"=>$source->rowCount()]);
+
 foreach($source as $one)
 {
   $fileNameTemplate = $one['image_id'].".jpg";
