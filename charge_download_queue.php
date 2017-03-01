@@ -33,7 +33,7 @@ foreach($source as $one)
   $log->debug('Is synced:', $isSynced);
 
   if($isSynced["synced"]) {
-    $log->warning("Synced already, skip and continue");
+    $log->warning("Synced already, skip and continue",["file"=>$fileUrl]);
     continue;
   }
 
@@ -45,7 +45,7 @@ foreach($source as $one)
   $log->debug('Is queued:', $isQueued);
 
   if($isQueued["queued"]) {
-    $log->warning("Queued already, skip and continue");
+    $log->warning("Queued already, skip and continue",["file"=>$fileUrl]);
     continue;
   }
 
