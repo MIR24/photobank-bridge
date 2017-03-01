@@ -9,12 +9,13 @@ $log = new Logger('main');
 
 //Operation limit, mostly for debug purposes. Set to 0 at production run.
 $limit = 5;
+$minImageWidth = 800;
 $urlTemplate = "http://stc01.mir24.tv/media/images/original/original";
 
 $log->pushHandler(new StreamHandler('main.log', Logger::DEBUG));
 $log->debug('Sync started');
 
-$sql = "SELECT * FROM photobank WHERE showinbank = 1";
+$sql = "SELECT * FROM photobank JOIN image ON image_id=image.id WHERE showinbank = 1 AND image.width > $minImageWidth";
 if ($limit) $sql.= ($limit)?" LIMIT ".$limit:"";
 $log->debug($sql);
 
