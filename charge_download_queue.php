@@ -16,7 +16,13 @@ $urlTemplate = "http://stc01.mir24.tv/media/images/original/original";
 $log->pushHandler(new StreamHandler('main.log', Logger::DEBUG));
 $log->debug('Sync started');
 
-$sql = "SELECT * FROM photobank JOIN image ON image_id=image.id WHERE showinbank = 1 AND image.width > $minImageWidth AND image.height > $minImageHeight";
+$sql = "SELECT * FROM photobank
+        LEFT JOIN photobank_tag ON photobank.id = photobank_id
+        INNER JOIN image ON image_id=image.id
+        WHERE showinbank = 1
+        AND ((`title` IS NOT NULL AND TRIM(title) <> '') OR tags_id IS NOT NULL)
+        AND image.width > $minImageWidth
+        AND image.height > $minImageHeight";
 if ($limit) $sql.= ($limit)?" LIMIT ".$limit:"";
 $log->debug($sql);
 
